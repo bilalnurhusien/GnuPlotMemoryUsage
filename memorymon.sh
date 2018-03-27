@@ -14,10 +14,10 @@ export tmp_memory_data_path=/tmp/memoryusage.dat
 export memory_usage_plot=memoryusageplot.in
 
 #copy script to remote host
-scp ${free_mon_file} "root@${ip_addr}:/tmp/"
+scp ${free_mon_file} "root@${ip_addr}:${tmp_free_mon_path}"
 
 #kill previously running task and launch new one on remote host
-ssh "root@${ip_addr}" "pkill ${free_mon_file}; ${tmp_free_mon_path} &"
+ssh -n "root@${ip_addr}" "pkill ${free_mon_file};  chmod +x ${tmp_free_mon_path}; ${tmp_free_mon_path} &" < /dev/null
 
 # wait for script to launch
 sleep 5
@@ -30,7 +30,7 @@ while (true) do
 	#run gnuplot
 	gnuplot -e "file_name='${tmp_memory_data_path}'" $memory_usage_plot
 
-	#exit gnuplot window
+	#close gnuplot window
 	pkill "gnuplot $memory_usage_plot"
 
 done
