@@ -2,7 +2,7 @@
 
 if [ $# -lt 1 ]
 then
-	echo "Please pass ip addr for remote host to monitor"
+	echo "Please pass ip addr of remote host to monitor"
 	echo "Usage ./memorymon.sh XXX.XXX.XXX.XXX"
 	exit
 fi
