@@ -1,3 +1,17 @@
 #!/bin/sh
 
-while true; do free -k | awk -v timestamp=$(date +"%H:%M") 'NR==2{print timestamp,$2,$3,$4}' >> /tmp/memoryusage.dat; sleep 60; done 
+max_file_length=2000
+trim_length=100
+
+while true; do 
+{
+	file_size=`cat /tmp/memoryusage.dat | wc -l`
+	if [ $file_size -gt $max_file_length ]
+		then
+			sed -e '1,${trim_length}d' < /tmp/memoryusage.dat > /tmp/memoryusage.dat
+			mv /tmp/memoryusage.dat /tmp/memoryusage.dat
+	fi
+
+	free -k | awk -v timestamp=$(date +"%H:%M") 'NR==2{print timestamp,$2,$3,$4}' >> /tmp/memoryusage.dat; sleep 60;
+}
+done 
