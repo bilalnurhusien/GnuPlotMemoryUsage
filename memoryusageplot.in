@@ -1,0 +1,30 @@
+#! /usr/bin/gnuplot
+
+#format
+set title 'Memory Usage'
+set xlabel 'Time (24 Hr)'
+set ylabel 'Memory (kB)
+set xdata time
+set timefmt "%H:%M"
+set format x "%H:%M"
+set print "-"
+
+#ranges
+set grid
+set autoscale
+
+#tickmarks
+set xtic auto
+set ytic auto
+
+!date
+print "Printing plot..."
+
+plot file_name using 1:2 with linespoints title 'total memory', file_name using 1:3 with linespoints title 'used memory',file_name using 1:4 with linespoints title 'free memory', file_name using 1:5 with linespoints title 'shared memory'
+
+print "Sleeping..."
+pause 60
+
+!date
+print "Waking up..."
+exit

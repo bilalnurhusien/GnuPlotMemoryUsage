@@ -12,6 +12,6 @@ while true; do
 			mv /tmp/tmp_memoryusage.dat /tmp/memoryusage.dat
 	fi
 
-	free -k | awk -v timestamp=$(date +"%H:%M") 'NR==2{print timestamp,$2,$3,$4}' >> /tmp/memoryusage.dat; sleep 60;
+	free -k | awk -v timestamp=$(date +"%H:%M") 'NR==2{print timestamp,$2,$3,$4,$5}' >> /tmp/memoryusage.dat; sleep 60;
 }
 done 
